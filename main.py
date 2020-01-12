@@ -3,7 +3,7 @@ import datetime
 from discord.ext import commands
 from cogs.basic_commands import BasicCommands
 
-token = 'NjY1OTg5MTA5NjI1Mzg5MDU2.XhtpQg.FGUq7xATAGORfwLLALdz9IaI4IY'
+token = 'NjY1OTg5MTA5NjI1Mzg5MDU2.XhuTTA.KnZbn_Rgsb4LJ0HWwojtlrwM06s'
 
 bot = commands.Bot("$")
 
