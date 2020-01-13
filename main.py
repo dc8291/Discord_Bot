@@ -2,8 +2,9 @@ import discord
 import datetime
 from discord.ext import commands
 from cogs.basic_commands import BasicCommands
+import re
 
-token = 'NjY1OTg5MTA5NjI1Mzg5MDU2.XhuTTA.KnZbn_Rgsb4LJ0HWwojtlrwM06s'
+token = 'token'
 
 bot = commands.Bot("$")
 
@@ -18,14 +19,14 @@ async def on_ready():
     print('[{}] I\'m in!'.format(datetime.datetime.now()))
     print('----')
 
-
+#When someone types "i'm in" send the i'm in image
 @bot.event
 async def on_message(message):
     if message.author.bot:
         return
 
-    if "i\'m in" in message.content.lower():
-        await message.channel.send("I\'m in")
+    match = re.search("(i'*m\s*in)", message.content.lower())
+    if  match:
         await message.channel.send(file=discord.File('im_in.jpg'))
 
     await bot.process_commands(message)
