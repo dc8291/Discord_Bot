@@ -8,8 +8,5 @@ class BasicCommands(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def ping(self, ctx):
-        await ctx.send('pong')
-
-
-
+    async def yeet(self, ctx):
+        await ctx.send('yeetus')
