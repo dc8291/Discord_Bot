@@ -4,8 +4,9 @@ from discord.ext import commands
 from cogs.basic_commands import BasicCommands
 from cogs.relationship import Relationship
 import re
+import json
 
-token = 'NjY1OTg5MTA5NjI1Mzg5MDU2.Xh5XkQ.hGQXd2q8bW4WtiiatX7MsXcZF4k'
+token = json.load(open("static/env.json"))["token"]
 
 bot = commands.Bot("$")
 
