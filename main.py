@@ -1,38 +1,32 @@
 import discord
 import datetime
+import os
 from discord.ext import commands
 from cogs.basic_commands import BasicCommands
-from cogs.relationship import Relationship
-import re
+from cogs.op_score import OPScore
+
 import json
 
 token = json.load(open("static/env.json"))["token"]
 
-bot = commands.Bot("$")
-
-bot.add_cog(BasicCommands(bot))
-bot.add_cog(Relationship(bot))
-
+bot = commands.Bot("!")
 
 @bot.event
 async def on_ready():
-    print('Logged in as')
-    print(bot.user.name)
-    print(bot.user.id)
+    print('Logged in as ' + bot.user.name)
     print('[{}] I\'m in!'.format(datetime.datetime.now()))
     print('----')
 
-#When someone types "i'm in" send the i'm in image
-@bot.event
-async def on_message(message):
-    if message.author.bot:
-        return
+# Reloads cogs. Useful during debugging
+@bot.command()
+async def reload(ctx, extension):
+    print("reloading...")
+    bot.unload_extension(f'cogs.{extension}')
+    bot.load_extension(f'cogs.{extension}')
 
-    match = re.search("(i'?m\s*in)", message.content.lower())
-    if  match:
-        await message.channel.send(file=discord.File('pics/im_in.jpg'))
-
-    await bot.process_commands(message)
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        bot.load_extension(f'cogs.{filename[:-3]}')
 
 
 bot.run(token, bot=True)
